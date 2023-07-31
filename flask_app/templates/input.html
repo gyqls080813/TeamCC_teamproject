@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Input Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 30%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            margin-top: 10px;
+            align-items: center; /* 각 항목을 중앙 정렬 */
+        }
+        form input[type="text"],
+        form input[type="number"],
+        form select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            width: 30%;
+            margin: auto; 
+        }
+        form input[type="submit"] {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>데이터 직접 입력</h1>
+    <form id="dataForm" action="/{{ model_name }}/input" method="post">
+        {% for field in fields %}
+        <label for="{{ field[0] }}">{{ field[0] }}</label><br>
+        {% if field[1] != 'select' %}
+        <input type="{{ field[1] }}" id="{{ field[0] }}" name="{{ field[0] }}" pattern="^-?(0|[1-9]\d*)(\.\d+)?$" step="0.00001"><br>
+        {% else %}
+        <select name="{{ field[0] }}" id="{{ field[0] }}">
+            {% for option in field[2] %}
+            <option value="{{ option }}">{{ option }}</option>
+            {% endfor %}
+        </select><br>
+        {% endif %}
+        {% endfor %}
+      <input type="submit" value="Predict">
+    </form>
+
+    <script>
+        document.getElementById('dataForm').addEventListener('submit', function(event) {
+            var inputs = this.querySelectorAll('input[type="text"],input[type="number"]');
+            for(var i = 0; i < inputs.length; i++) {
+                if(inputs[i].value == '' || !inputs[i].validity.valid) {
+                    event.preventDefault();
+                    alert('모든 입력 칸을 실수로 채워주세요.');
+                    break;
+                }
+            }
+        });
+    </script>
+    
+  </body>
+</html>

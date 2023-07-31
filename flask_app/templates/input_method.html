@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            width: 30%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .options {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 50px;
+        }
+        .options form button {
+            padding: 15px 25px;
+            font-size: 20px;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .options form button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>데이터 입력 방식 선택</h1>
+        <div class="options">
+            <form action="/{{ model_name }}/upload" method="get">
+                <button type="submit">CSV 파일 업로드</button>
+            </form>
+            <form action="/{{ model_name }}/input" method="get">
+                <button type="submit">데이터 직접 입력</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
